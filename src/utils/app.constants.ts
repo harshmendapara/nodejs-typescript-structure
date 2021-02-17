@@ -1,0 +1,150 @@
+export const LOGGER_LEVELS = {
+	INFO: 'info',
+	WARN: 'warn',
+	ERROR: 'error'
+};
+
+export const HOTEL_COUCH_DB_FIELDS = [
+	'propertyId',
+	'password',
+	'contactPersonName',
+	'contactPersonPhone',
+	'contactPersonEmail',
+	'contactPersonRole',
+	'language',
+	'propertyType',
+	'propertyName',
+	'noOfRooms',
+	'website',
+	'locationId',
+	'location',
+	'propertyAddress',
+	'propertyCity',
+	'propertyState',
+	'propertyCountry',
+	'propertyPostalCode',
+	'bookingEmail',
+	'bookingPhone',
+	'bankAccountOwner',
+	'bankAccountNumber',
+	'currency',
+	'fiscalAddress',
+	'fiscalCity',
+	'fiscalState',
+	'fiscalCountry',
+	'fiscalPostalCode',
+	'commercialId',
+	'commercialEmail',
+	'commercialPhone',
+	'isInvester',
+	'investerId',
+	'investmentAmount',
+	'investmentCurrency',
+	'investmentDate',
+	'createdDate',
+	'referralBonus',
+	'taxInfo',
+	'status',
+	'hotelStatus'
+];
+
+export const USER_COUCH_DB_FIELDS = [
+	'userId',
+	'password',
+	'title',
+	'firstName',
+	'middleName',
+	'lastName',
+	'email',
+	'phone',
+	'address',
+	'city',
+	'state',
+	'country',
+	'postalCode',
+	'isInvestor',
+	'investorId',
+	'investmentAmount',
+	'investmentCurrency',
+	'investmentDate',
+	'accountDetails',
+	'language',
+	'referralBonus',
+	'referralId',
+	'tokens',
+	'status',
+	'userStatus'
+];
+
+export const BOOKING_COUCH_DB_FIELDS = [
+	'bookingId',
+	'transactionType',
+	'userId',
+	'propertyId',
+	'propertyName',
+	'userPhone',
+	'userEmail',
+	'city',
+	'state',
+	'country',
+	'noOfRooms',
+	'noOfGuests',
+	'dateOfArrival',
+	'dateOfDeparture',
+	'roomDetails',
+	'guestDetails',
+	'userComments',
+	'currency',
+	'bookingAmount',
+	'paymentGateway',
+	'refundAmount',
+	'updateDate',
+	'status',
+	'referralId',
+	'otherFeesDetails',
+	'totalAmount'
+];
+
+export const ADMIN_COUCH_DB_FIELDS = [
+	'adminId',
+	'password',
+	'type',
+	'title',
+	'firstName',
+	'middleName',
+	'lastName',
+	'email',
+	'phone',
+	'address',
+	'city',
+	'state',
+	'country',
+	'postalCode',
+	'isInvestor',
+	'investmentAmount',
+	'investmentCurrency',
+	'investmentDate',
+	'accountDetails',
+	'language',
+	'status'
+];
+
+export const WALLET_COUCH_DB_FIELDS = ['WID', 'currency', 'amount', 'userId', 'timestamp', 'email'];
+
+export const FUND_COUCH_DB_FIELDS = [
+	'Txid',
+	'userID',
+	'currency',
+	'deposit',
+	'amount',
+	'status',
+	'timestamp',
+	'depositId',
+	'fundId'
+];
+
+export const AUTH_TYPES = {
+	HOTEL: 'HOTEL',
+	CUSTOMER: 'CUSTOMER',
+	ADMIN: 'ADMIN'
+};

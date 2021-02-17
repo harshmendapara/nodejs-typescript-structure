@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Booking Details</title>
+  <style>
+    @media print {
+  body {
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+  }
+    a {
+      color: #5D6975;
+      text-decoration: underline;
+    }
+
+    body {
+      position: relative;
+      width: 21cm;
+      height: 29.7cm;
+      margin: 0 auto;
+      color: #001028;
+      background: #FFFFFF;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-family: Arial;
+    }
+
+    header {
+      padding: 10px 0;
+      margin-bottom: 30px;
+    }
+
+    #logo {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    #logo img {
+      width: 100px;
+    }
+
+    h1 {
+      border-top: 1px solid #5D6975;
+      border-bottom: 1px solid #5D6975;
+      color: #5D6975;
+      font-size: 2.4em;
+      line-height: 1.4em;
+      font-weight: normal;
+      text-align: center;
+      margin: 0 0 20px 0;
+      background: url(dimension.png);
+    }
+
+    #project {
+      float: left;
+    }
+
+    #project span {
+      color: #5D6975;
+      text-align: right;
+      width: 52px;
+      font-size: 0.8em;
+      padding-left: 10px;
+    }
+
+    #project div {
+      white-space: nowrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin-bottom: 20px;
+    }
+
+    table tr:nth-child(2n-1) td {
+      background: #F5F5F5;
+    }
+
+    table th,
+    table td {
+      text-align: center;
+    }
+
+    table th {
+      padding: 5px 20px;
+      color: #5D6975;
+      border-bottom: 1px solid #C1CED9;
+      white-space: nowrap;
+      font-weight: normal;
+    }
+
+    table .service,
+    table .desc {
+      text-align: left;
+    }
+
+    table td {
+      padding: 20px;
+      text-align: right;
+    }
+
+    table td.service,
+    table td.desc {
+      vertical-align: top;
+    }
+
+    table td.unit,
+    table td.qty,
+    table td.total {
+      font-size: 1.2em;
+    }
+
+    table td.grand {
+      border-top: 1px solid #5D6975;
+      ;
+    }
+
+    #notices .notice {
+      color: #5D6975;
+      font-size: 1.2em;
+    }
+
+    footer {
+      color: #5D6975;
+      width: 100%;
+      height: 30px;
+      position: absolute;
+      bottom: 0;
+      border-top: 1px solid #C1CED9;
+      padding: 8px 0;
+      text-align: center;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div id="logo">
+      <img src="http://yennarascala.com/img/logo_small.28c154e5.png">
+    </div>
+    <h1>Booking Details</h1>
+    <div id="project">
+      <div><span>Booking ID: </span> <%= booking.bookingId %></div>
+      <div><span>Booking Secret code: </span> <%= booking.bookingSecretCode %></div>
+      <div><span>Status: </span> <%= booking.status %></div>
+      <div><span>Hotel Name: </span> <%= booking.propertyName %></div>
+      <div><span>Hotel Address: </span> <%= booking.address %> </div>
+      <div><span>Hotel Phone: </span> <%= booking.bookingPhone %></div>
+      <div><span>Hotel Email: </span> <%= booking.bookingEmail %></div>
+      <div><span>Check In Time: </span>
+        <%= new Date(booking.bookingStartDate).getDate() %>/<%= new Date(booking.bookingStartDate).getMonth() + 1 %>/<%= new Date(booking.bookingStartDate).getFullYear() %>
+        <%= booking.checkInTime %>
+      </div>
+      <div><span>Check Out Time: </span>
+        <%= new Date(booking.bookingEndDate).getDate() %>/<%= new Date(booking.bookingEndDate).getMonth() + 1 %>/<%= new Date(booking.bookingEndDate).getFullYear() %>
+        <%= booking.checkOutTime %>
+      </div>
+      <div><span>Number Of Guest: </span> <%= booking.noOfGuests %></div>
+      <div><span>Number Of Room: </span> <%= booking.noOfRooms %></div>
+      <div><span>Stay Night: </span> <%= booking.stayNight %></div>
+    </div>
+  </header>
+  <main><br>
+    <table>
+      <thead>
+        <tr>
+          <th class="desc"></th>
+          <th class="desc">Persons</th>
+          <th class="desc">Details</th>
+          <th class="desc">Total Room</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (booking.allRoomInfo.length > 0) { %>
+        <% booking.allRoomInfo.forEach(student => {%>
+        <tr>
+          <td class="desc">Standard <%= student.roomType %> Room X <%= student.totalSelectedRoom %></td>
+          <td class="desc">
+            <%= student.numberOfAdults %> Adults | <%= student.numberOfChild %> Child |
+            <%= student.numberOfInfants %> Infants
+          </td>
+          <td class="desc">
+            <%= booking.currencySymbol %> <%= student.price %> Room Price
+          </td>
+          <td class="desc">
+            <%= booking.currencySymbol %> <%= student.totalSelectedRoom %>
+          </td>
+          <td class="desc">
+            <%= booking.currencySymbol %> <%= student.cost %>
+          </td>
+        </tr>
+        <%  });%>
+        <% }%>
+        <tr>
+          <td colspan="4">TAX (GST)</td>
+          <td class="desc"> <%= booking.currencySymbol %> <%= booking.otherFeesDetails.GST %></td>
+        </tr>
+        <tr>
+          <td colspan="4">Transaction Fee</td>
+          <td class="desc"><%= booking.currencySymbol %> <%= booking.otherFeesDetails.transactionFee %></td>
+        </tr>
+        <tr>
+          <td colspan="4" class="grand total">GRAND TOTAL</td>
+          <td class="grand total"><%= booking.currencySymbol %> <%= booking.totalAmount %></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <footer>
+    Copyright © 2021 by Yenna Tech Private Limited
+  </footer>
+</body>
+
+</html>

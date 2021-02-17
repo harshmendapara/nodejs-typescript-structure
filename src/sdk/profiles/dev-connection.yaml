@@ -1,0 +1,118 @@
+---
+#
+# The network connection profile provides client applications the information about the target
+# blockchain network that are necessary for the applications to interact with it.
+name: 'dev-network'
+
+#
+# Describe what the target network is/does.
+#
+description: 'A development enviornment setup'
+
+#
+# Schema version of the content. Used by the SDK to apply the corresponding parsing rules.
+#
+version: '1.0'
+
+#
+# list of participating organizations in this network
+#
+organizations:
+  hotels:
+    mspid: hotelsMSP
+    peers:
+      - peer0.hotels.yennarascala.com
+
+  users:
+    mspid: usersMSP
+    peers:
+      - peer0.users.yennarascala.com
+
+  yrgroup:
+    mspid: yrgroupMSP
+    peers:
+      - peer0.yrgroup.yennarascala.com
+
+#
+# [Optional]. But most apps would have this section so that channel objects can be constructed
+# based on the content below. If an app is creating channels, then it likely will not need this
+# section.
+#
+channels:
+  # name of the channel
+  hotelschannel-1:
+    # List of orderers designated by the application to use for transactions on this channel.
+    orderers:
+      - orderer.yennarascala.com
+
+    # Required. list of peers from participating orgs
+    peers:
+      # Hotels peer - with roles played by the peer
+      peer0.hotels.yennarascala.com:
+        # Roles for which this peer may be used
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+      # Users peer - with roles played by the peer
+      # peer0.users.yennarascala.com:
+      #   # Roles for which this peer may be used
+      #   endorsingPeer: false # SDK will NOT send request for endorsements to this peer
+      #   chaincodeQuery: true
+      #   ledgerQuery: true
+      #   eventSource: false # SDK will NOT allow event subscribers for this peer
+
+      # peer0.yrgroup.yennarascala.com:
+      #   # Roles for which this peer may be used
+      #   endorsingPeer: true # SDK will NOT send request for endorsements to this peer
+      #   chaincodeQuery: true
+      #   ledgerQuery: true
+      #   eventSource: false
+
+#
+# List of orderers to send transaction and channel create/update requests to. For the time
+# being only one orderer is needed.
+#
+orderers:
+  orderer.yennarascala.com:
+    url: grpc://orderer.yennarascala.com:7050
+    # grpc-max-send-message-length: -1
+
+    # these are standard properties defined by the gRPC library
+    # they will be passed in as-is to gRPC client constructor
+    # grpcOptions:
+    #  ssl-target-name-override: orderer.yennarascala.com
+
+    # In dev environment the Orderer is NOT enabled for TLS
+    # tlsCACerts:
+    #   path: path/to/cert
+
+#
+# List of peers to send various requests to, including endorsement, query
+# and event listener registration.
+#
+peers:
+  peer0.hotels.yennarascala.com:
+    url: grpc://peer0.hotels.yennarascala.com:7051
+    # grpc-max-send-message-length: -1
+    # grpcOptions:
+    #  ssl-target-name-override: peer0.hotels.yennarascala.com:7053
+    # tlsCACerts:
+    #   path: [ This need to be set if TLS is enabled on peer]
+
+  peer0.users.yennarascala.com:
+    url: grpc://peer0.users.yennarascala.com:8051
+    # grpc-max-send-message-length: -1
+    #grpcOptions:
+    #  ssl-target-name-override: peer0.users.yennarascala.com
+    # tlsCACerts:
+    #   path: [ This need to be set if TLS is enabled on peer]
+
+  peer0.yrgroup.yennarascala.com:
+    url: grpc://peer0.yrgroup.yennarascala.com:9051
+    # grpc-max-send-message-length: -1
+    #grpcOptions:
+    # ssl-target-name-override: peer0.yrgroup.yennarascala.com
+    # tlsCACerts:
+    #   path: [ This need to be set if TLS is enabled on peer]

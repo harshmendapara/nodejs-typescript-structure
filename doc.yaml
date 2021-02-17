@@ -1,0 +1,2127 @@
+swagger: '2.0'
+info:
+  description: 'This is a YennaRascala Self Sovereign Identity Server.'
+  version: '1.0.0'
+  title: 'YennaRascala'
+  termsOfService: 'http://yennarascala.com/terms.html'
+  contact:
+    email: 'anshul.saxena@yennarascala.com'
+  license:
+    name: 'YennaRascala'
+    url: 'http://yennarascala.com/terms.html'
+host: '52.140.71.92:3000/'
+basePath: 'api'
+tags:
+  - name: 'hotel'
+    description: 'Information regarding the hotel channel and the rest endpoints'
+    externalDocs:
+      description: 'Find out more'
+      url: 'http://swagger.io'
+  - name: 'user'
+    description: 'Information regarding the user channel and the rest endpoints'
+schemes:
+  - 'http'
+paths:
+  /hotel/save:
+    post:
+      tags:
+        - 'hotel'
+      summary: 'Add a new hotel to the network'
+      description: 'Add a new hotel, first time when hotel registering with YR'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          description: 'Hotel object that needs to be added to the store'
+          required: true
+          schema:
+            $ref: '#/definitions/Hotel'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch hotels'
+      description: 'Fetch details of each hotel from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/paginationWithSpecifitCol?perRowPage=10&currentPage=1:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch Hotels Pagination With Specifit Data'
+      description: 'Fetch details of each hotel from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+    /hotel/pagination?perRowPage=10&currentPage=1:
+      get:
+        tags:
+          - 'hotel'
+        summary: 'Fetch Hotels Pagination With Specifit Data'
+        description: 'Fetch details of each hotel from the database'
+        produces:
+          - 'application/json'
+        responses:
+          '200':
+            description: 'Successful operation'
+          '500':
+            description: 'Operation Failed'
+  /hotel/id?propertyId=P0002:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch hotels by Id'
+      description: 'Fetch details of each hotel from the database by Id'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'propertyId'
+          in: 'query'
+          description: 'Property Id of hotel'
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/approve:
+    post:
+      tags:
+        - 'hotel'
+      summary: 'Admin can accept or reject the hotels request to join the network'
+      description: 'Admin can accept or reject the hotels request to join the network'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/HotelApprove'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/toggle:
+    post:
+      tags:
+        - 'hotel'
+      summary: 'Admin can enable or disable the hotels request to join the network'
+      description: 'Admin can enable or disable the hotels request to join the network'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/HotelToggle'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/update:
+    patch:
+      tags:
+        - 'hotel'
+      summary: 'Update hotel from primaryId'
+      description: 'Edit hotel details'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'Primary ID and data which needs to be edited'
+          required: true
+          schema:
+            $ref: '#/definitions/Hotel'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/search:
+    post:
+      tags:
+        - 'hotel'
+      summary: 'Search hotels'
+      description: 'search hotel details with pageInition'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'search criteria and pageInition values'
+          required: true
+          schema:
+            $ref: '#/definitions/hotelSearch'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/popularHotels:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch Popular Hotels'
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/recommendedHotels:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch Recommended Hotels'
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/contactPersonEmail?contactPersonEmail=XYZ:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch hotels by contactPersonEmail'
+      description: 'Fetch details of each hotel from the database by contactPersonEmail'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'contactPersonEmail'
+          in: 'query'
+          description: 'contactPersonEmail of hotel'
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/bookingByEmail?contactPersonEmail=XYZ:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch hotels booking by contactPersonEmail'
+      description: 'Fetch details of each hotel booking from the database by contactPersonEmail'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'contactPersonEmail'
+          in: 'query'
+          description: 'contactPersonEmail of hotel'
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /hotel/hotelCounts:
+    get:
+      tags:
+        - 'hotel'
+      summary: 'Fetch Hotels Counts'
+      description: 'Fetch details of each user registered under contact us from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /user/save:
+    post:
+      tags:
+        - 'user'
+      summary: 'Add a new user.'
+      description: 'Add a new user, first time when user registering with YR'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          description: 'User object which needs to be added.'
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /user/:
+    get:
+      tags:
+        - 'user'
+      summary: 'Fetch users'
+      description: 'Fetch details of each user from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /user/id?userId=P0002:
+    get:
+      tags:
+        - 'user'
+      summary: 'Fetch user by userId'
+      description: 'Fetch details of each user from the database by userId'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'userId'
+          in: 'query'
+          description: ''
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /user/bookmarks?userId=P0002:
+    get:
+      tags:
+        - 'user'
+      summary: 'Fetch bookmarks by userId'
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'userId'
+          in: 'query'
+          description: ''
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /user/update:
+    patch:
+      tags:
+        - 'user'
+      summary: 'Update user from userId'
+      description: 'Edit user details'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'User ID and data which needs to be edited'
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/save:
+    post:
+      tags:
+        - 'booking'
+      summary: 'Add a new booking.'
+      description: 'Whenever user do a new booking'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - in: 'body'
+          name: 'body'
+          description: 'Booking object which needs to be added.'
+          required: true
+          schema:
+            $ref: '#/definitions/Booking'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/approve:
+    post:
+      tags:
+        - 'booking'
+      summary: 'approve a booking.'
+      description: 'Approve a new booking'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/BookingApprove'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch bookings'
+      description: 'Fetch details of each booking from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/hotel-count-byPropertyID?propertyId=ABC:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch booking by Property Id'
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'propertyId'
+          in: 'query'
+          description: 'Property Id'
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/user-count-byUserID?userId=ABC:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch booking by User Id'
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'userId'
+          in: 'query'
+          description: 'User Id'
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/bookingByUserEmailId?userEmailId=ABC:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch booking by User EmailId'
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'userEmailId'
+          in: 'query'
+          description: 'user emailId required'
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/hotel-count:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch count of all booked hotels'
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/update:
+    patch:
+      tags:
+        - 'booking'
+      summary: 'Update booking from bookingId'
+      description: 'Edit booking details'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/xml'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'Booking ID and data which needs to be edited'
+          required: true
+          schema:
+            $ref: '#/definitions/Booking'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/countBystatus?status=:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch booking count by status'
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'status'
+          in: 'query'
+          description: 'If you want total number of booking just send status empty'
+          required: false
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/status?status=Cancelled:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch booking details by status'
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'status'
+          in: 'query'
+          description: ''
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /booking/pagination?perRowPage=10&currentPage=1:
+    get:
+      tags:
+        - 'booking'
+      summary: 'Fetch Hotels Pagination'
+      description: 'Fetch details of each hotel from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/user:
+    post:
+      tags:
+        - 'auth'
+      summary: 'UserSignup'
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/xml'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'parameter for user signUp'
+          required: true
+          schema:
+            $ref: '#/definitions/userSignUp'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/userApprove:
+    post:
+      tags:
+        - 'auth'
+      summary: 'approve a user.'
+      description: 'Approve a new user, first time when user registering with YR'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/UserApprove'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/userToggle:
+    post:
+      tags:
+        - 'auth'
+      summary: ''
+      description: 'enable or disable a user.'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'userId'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/UserToggle'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/hotel:
+    post:
+      tags:
+        - 'auth'
+      summary: 'HotelSignup'
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/xml'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'parameter for hotel signUp'
+          required: true
+          schema:
+            $ref: '#/definitions/hotelSignUp'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/login:
+    post:
+      tags:
+        - 'auth'
+      summary: 'login'
+      description: 'signup by email and password'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/xml'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'email, password and type'
+          required: true
+          schema:
+            $ref: '#/definitions/login'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/generateOTP:
+    post:
+      tags:
+        - 'auth'
+      summary: 'generate and send otp'
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/xml'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'phoneNumber required'
+          required: true
+          schema:
+            $ref: '#/definitions/generateOTP'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/otp:
+    post:
+      tags:
+        - 'auth'
+      summary: 'verify otp'
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/xml'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'token required'
+          required: true
+          schema:
+            $ref: '#/definitions/otp'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/fetchUser:
+    get:
+      tags:
+        - 'auth'
+      summary: ''
+      description: 'Fetch details of user login from database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/fetchHotel:
+    get:
+      tags:
+        - 'auth'
+      summary: ''
+      description: 'Fetch details of hotel login from database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/user-update:
+    patch:
+      tags:
+        - 'auth'
+      summary: 'update user by ID'
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'parameter for user signUp'
+          required: true
+          schema:
+            $ref: '#/definitions/userUpdate'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/hotel-profile-update:
+    patch:
+      tags:
+        - 'auth'
+      summary: 'update hotel profile by ID'
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'parameter for hotel profile signUp'
+          required: true
+          schema:
+            $ref: '#/definitions/hotelProfileUpdate'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/userByEmail:
+    get:
+      tags:
+        - 'auth'
+      summary: 'get user by email id'
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'email'
+          in: 'query'
+          description: ''
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/user-forgetPassword:
+    post:
+      tags:
+        - 'auth'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/ForgetPassword'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/hotel-forgetPassword:
+    post:
+      tags:
+        - 'auth'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/ForgetPassword'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/user-changePassword:
+    post:
+      tags:
+        - 'auth'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/ChangePassword'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /auth/hotel-changePassword:
+    post:
+      tags:
+        - 'auth'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: ''
+          required: true
+          schema:
+            $ref: '#/definitions/ChangePassword'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /admin/save:
+    post:
+      tags:
+        - 'admin'
+      summary: 'add a new admin to network'
+      description: 'add admin details'
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/xml'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'admin details'
+          required: true
+          schema:
+            $ref: '#/definitions/admin'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /admin/:
+    get:
+      tags:
+        - 'admin'
+      summary: 'Fetch admins'
+      description: 'Fetch details of each admin from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /upload/?type=hotels:
+    get:
+      tags:
+        - 'upload'
+      summary: 'Get S3 url'
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /subscription/subscribe:
+    post:
+      tags:
+        - 'subscription'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'emailId'
+          required: true
+          schema:
+            $ref: '#/definitions/Subscribe'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /subscription/un-subscribe:
+    post:
+      tags:
+        - 'subscription'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          description: 'emailId'
+          required: true
+          schema:
+            $ref: '#/definitions/UnSubscribe'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /subscription/:
+    get:
+      tags:
+        - 'subscription'
+      summary: 'Fetch Subscribed Email Ids'
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /blog/save:
+    post:
+      tags:
+        - 'blogs'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/BlogPost'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /blog:
+    get:
+      tags:
+        - 'blogs'
+      summary: ''
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'content_type'
+          in: 'query'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /blogs:
+    get:
+      tags:
+        - 'blogs'
+      summary: ''
+      description: ''
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /blog/update:
+    put:
+      tags:
+        - 'blogs'
+      summary: ''
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'content_type'
+          in: 'query'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /blog/delete:
+    delete:
+      tags:
+        - 'blogs'
+      summary: ''
+      description: ''
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'content_type'
+          in: 'query'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /contactUs/save:
+    post:
+      tags:
+        - 'ContactUs'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/ContactUs'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /contactUs:
+    get:
+      tags:
+        - 'ContactUs'
+      summary: 'Fetch Contact Us'
+      description: 'Fetch details of each user registered under contact us from the database'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /transaction/order:
+    post:
+      tags:
+        - 'Transaction'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/RazorPayOrder'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /transaction/refund:
+    post:
+      tags:
+        - 'Transaction'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/RazorPayRefund'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /transaction/paymentCapture:
+    post:
+      tags:
+        - 'Transaction'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/RazorPayPayment'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /transaction/wallet:
+    post:
+      tags:
+        - 'Transaction'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/Wallet'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /transaction/fund:
+    post:
+      tags:
+        - 'Transaction'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/Fund'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+  /email/booking:
+    post:
+      tags:
+        - 'Email'
+      summary: ''
+      description: ''
+      consumes:
+        - 'application/json'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'body'
+          in: 'body'
+          schema:
+            $ref: '#/definitions/BookingEmail'
+      responses:
+        '201':
+          description: 'Successful operation'
+        '500':
+          description: 'Operation Failed'
+
+definitions:
+  Hotel:
+    type: 'object'
+    required:
+      - 'propertyId'
+    properties:
+      propertyId:
+        type: 'string'
+      commercialId:
+        type: 'string'
+      password:
+        type: 'string'
+      status:
+        type: 'string'
+      isInvester:
+        type: 'boolean'
+      contactPersonName:
+        type: 'string'
+      contactPersonPhone:
+        type: 'string'
+      contactPersonEmail:
+        type: 'string'
+      contactPersonRole:
+        type: 'string'
+      language:
+        type: array
+        items:
+          type: 'string'
+      propertyType:
+        type: 'string'
+      propertyName:
+        type: 'string'
+      noOfRooms:
+        type: 'number'
+      website:
+        type: 'string'
+      location:
+        type: 'string'
+      locationId:
+        type: 'object'
+        properties:
+          lat:
+            type: 'string'
+          lng:
+            type: 'string'
+      propertyAddress:
+        type: 'string'
+      propertyCity:
+        type: 'string'
+      propertyState:
+        type: 'string'
+      propertyCountry:
+        type: 'string'
+      propertyPostalCode:
+        type: 'string'
+      bookingEmail:
+        type: 'string'
+      bookingPhone:
+        type: 'string'
+      referralBonus:
+        type: 'string'
+      taxInfo:
+        type: 'string'
+      hotelDescription:
+        type: 'string'
+      facilities:
+        type: 'string'
+      offers:
+        type: 'string'
+      starRating:
+        type: 'string'
+      refundability:
+        type: 'string'
+      policies:
+        type: 'string'
+      questionAndAnswers:
+        type: 'string'
+      hotelAmenities:
+        type: 'array'
+        items:
+          type: 'string'
+      checkInTime:
+        type: 'string'
+      checkOutTime:
+        type: 'string'
+      hotelStartingPrice:
+        type: 'string'
+      attachments:
+        $ref: '#/definitions/HotelAttachment'
+      assetDetails:
+        $ref: '#/definitions/HotelAssetDetails'
+      others:
+        type: 'string'
+      hotelStatus:
+        type: 'string'
+      hotelAvailability:
+        type: 'string'
+      propertyRooms:
+        type: 'array'
+        items:
+          $ref: '#/definitions/HotelPropertyRooms'
+    xml:
+      name: 'Hotel'
+  HotelAttachment:
+    type: 'object'
+    properties:
+      officailDocs:
+        type: 'array'
+        items:
+          type: object
+          properties:
+            url:
+              type: 'string'
+      images:
+        type: 'array'
+        items:
+          type: object
+          properties:
+            url:
+              type: 'string'
+      videos:
+        type: 'array'
+        items:
+          type: object
+          properties:
+            url:
+              type: 'string'
+    xml:
+      name: 'HotelAttachment'
+  HotelAssetDetails:
+    type: 'object'
+    properties:
+      isYrAsset:
+        type: 'boolean'
+      assetValue:
+        type: 'string'
+      contractDetails:
+        type: 'string'
+      timeline:
+        type: 'string'
+    xml:
+      name: 'HotelAssetDetails'
+  HotelPropertyRooms:
+    type: 'object'
+    properties:
+      categoryType:
+        type: 'string'
+      price:
+        type: 'string'
+      currency:
+        type: 'string'
+      totalRoom:
+        type: 'string'
+      numberOfBeds:
+        type: 'string'
+      typeOfMeal:
+        type: 'string'
+      roomAmentiies:
+        type: array
+        items:
+          type: 'string'
+      roomDescription:
+        type: 'string'
+      cancelPolicy:
+        type: 'string'
+      cancelPolicyDetails:
+        type: 'string'
+      inclusions:
+        type: 'string'
+      measureType:
+        type: 'string'
+      roomSize:
+        type: 'string'
+      bedType:
+        type: 'string'
+      roomType:
+        type: 'string'
+      policys:
+        type: 'array'
+        items:
+          type: object
+          properties:
+            url:
+              type: 'string'
+      numberOfSameKindRooms:
+        type: 'string'
+      imageFiles:
+        type: 'array'
+        items:
+          type: object
+          properties:
+            charges:
+              type: 'string'
+            duration:
+              type: 'string'
+            label:
+              type: 'string'
+    xml:
+      name: 'HotelPropertyRooms'
+  User:
+    type: 'object'
+    required:
+      - 'userId'
+    properties:
+      userId:
+        type: 'string'
+      password:
+        type: 'string'
+      isInvestor:
+        type: 'string'
+      userType:
+        type: 'string'
+      title:
+        type: 'string'
+      firstName:
+        type: 'string'
+      middleName:
+        type: 'string'
+      lastName:
+        type: 'string'
+      email:
+        type: 'string'
+      phone:
+        type: 'number'
+      address:
+        type: 'string'
+      city:
+        type: 'string'
+      state:
+        type: 'string'
+      country:
+        type: 'string'
+      postalCode:
+        type: 'number'
+      language:
+        type: 'string'
+      referralBonus:
+        type: 'string'
+      status:
+        type: 'string'
+      userStatus:
+        type: 'string'
+      others:
+        type: 'string'
+      tokens:
+        type: 'string'
+      bookmarks:
+        type: 'array'
+        items:
+          type: 'object'
+    xml:
+      name: 'User'
+  Booking:
+    type: 'object'
+    required:
+      - 'bookingId'
+    properties:
+      bookingId:
+        type: 'string'
+      transactionType:
+        type: 'string'
+      userEmailId:
+        type: 'string'
+      hotelId:
+        type: 'string'
+      propertyName:
+        type: 'string'
+      transactionAmount:
+        type: 'string'
+      currency:
+        type: 'string'
+      city:
+        type: 'string'
+      state:
+        type: 'string'
+      country:
+        type: 'string'
+      numberOfAdults:
+        type: 'string'
+      numberOfChild:
+        type: 'string'
+      numberOfInfants:
+        type: 'string'
+      noOfGuests:
+        type: 'string'
+      noOfRooms:
+        type: 'string'
+      contact:
+        type: 'object'
+        properties:
+          phone:
+            type: 'string'
+          email:
+            type: 'string'
+          guest:
+            type: 'array'
+            items:
+              type: object
+              properties:
+                name:
+                  type: 'string'
+                age:
+                  type: 'string'
+      paymentDetails:
+        $ref: '#/definitions/BookingPaymentDetails'
+      bookingDetails:
+        type: 'array'
+        items:
+          $ref: '#/definitions/BookingDetails'
+      userComments:
+        type: 'string'
+      bookingAmount:
+        type: 'string'
+      roomDetails:
+        type: 'array'
+        items:
+          $ref: '#/definitions/BookingRoomDetails'
+      bookingStartDate:
+        type: 'string'
+        format: 'date'
+      bookingEndDate:
+        type: 'string'
+        format: 'date'
+      referralId:
+        type: 'string'
+      status:
+        type: 'string'
+      bookingType:
+        type: 'string'
+      others:
+        type: 'string'
+      tokensAvailed:
+        type: 'string'
+      tokensAmount:
+        type: 'string'
+      totalAmount:
+        type: 'string'
+      otherFeesDetails:
+        $ref: '#/definitions/BookingOtherFeesDetails'
+    xml:
+      name: 'Booking'
+  BookingPaymentDetails:
+    type: 'object'
+    properties:
+      transactionNo:
+        type: 'string'
+      paymentGateway:
+        type: 'string'
+      refundAmount:
+        type: 'string'
+    xml:
+      name: 'BookingPaymentDetails'
+  BookingOtherFeesDetails:
+    type: 'object'
+    properties:
+      microjobFee:
+        type: 'string'
+      referralFee:
+        type: 'string'
+      GST:
+        type: 'string'
+      transactionFee:
+        type: 'string'
+    xml:
+      name: 'BookingOtherFeesDetails'
+  BookingDetails:
+    type: 'object'
+    properties:
+      roomType:
+        type: 'string'
+      cost:
+        type: 'string'
+      discount:
+        type: 'string'
+      reviewRating:
+        type: 'string'
+    xml:
+      name: 'BookingDetails'
+  BookingRoomDetails:
+    type: 'object'
+    properties:
+      id:
+        type: 'string'
+      type:
+        type: 'string'
+      price:
+        type: 'string'
+      noOfRooms:
+        type: 'string'
+    xml:
+      name: 'BookingRoomDetails'
+  hotelSearch:
+    type: 'object'
+    properties:
+      search:
+        $ref: '#/definitions/hotelSearchCriteria'
+      pageInitionDetails:
+        $ref: '#/definitions/hotelSearchPageInition'
+    xml:
+      name: 'hotelSearch'
+  hotelSearchCriteria:
+    type: 'object'
+    properties:
+      destination:
+        type: 'string'
+      noOfRooms:
+        type: 'number'
+      noOfPerson:
+        type: 'number'
+      fromDate:
+        type: 'string'
+        format: 'date'
+      toDate:
+        type: 'string'
+        format: 'date'
+      propertyType:
+        type: array
+        items:
+          type: 'string'
+    xml:
+      name: 'hotelSearchCriteria'
+  hotelSearchPageInition:
+    type: 'object'
+    properties:
+      pageSize:
+        type: 'number'
+        example: 10
+      currentPage:
+        type: 'number'
+        example: 1
+    xml:
+      name: 'hotelSearchPageInition'
+  investmentDetails:
+    type: 'object'
+    properties:
+      investmentAmount:
+        type: 'string'
+      investmentCurrency:
+        type: 'string'
+      investmentDate:
+        type: 'string'
+        format: 'date'
+    xml:
+      name: 'investment'
+  accountDetails:
+    type: 'object'
+    properties:
+      bankAccountOwner:
+        type: 'string'
+      bankAccountNumber:
+        type: 'string'
+      currency:
+        type: 'string'
+      bankName:
+        type: 'string'
+      IFSCNumber:
+        type: 'string'
+    xml:
+      name: 'account'
+  commercialDetails:
+    type: 'object'
+    properties:
+      fiscalAddress:
+        type: 'string'
+      fiscalCity:
+        type: 'string'
+      fiscalState:
+        type: 'string'
+      fiscalCountry:
+        type: 'string'
+      fiscalPostalCode:
+        type: 'number'
+      fiscalDetails:
+        type: 'string'
+      commercialEmail:
+        type: 'string'
+      commercialPhone:
+        type: 'string'
+      gstNumber:
+        type: 'string'
+      panNumber:
+        type: 'string'
+      addressProof:
+        type: 'string'
+      panHolderName:
+        type: 'string'
+    xml:
+      name: 'commercial'
+  userSignUp:
+    type: 'object'
+    properties:
+      email:
+        type: 'string'
+      password:
+        type: 'string'
+      type:
+        type: 'string'
+      firstName:
+        type: 'string'
+      middleName:
+        type: 'string'
+      lastName:
+        type: 'string'
+      phone:
+        type: 'string'
+      referralId:
+        type: 'string'
+    xml:
+      name: 'userSignUp'
+  hotelSignUp:
+    type: 'object'
+    properties:
+      email:
+        type: 'string'
+      password:
+        type: 'string'
+      type:
+        type: 'string'
+      contactName:
+        type: 'string'
+      hotelName:
+        type: 'string'
+      phone:
+        type: 'string'
+      referralId:
+        type: 'string'
+    xml:
+      name: 'hotelSignUp'
+  login:
+    type: 'object'
+    properties:
+      email:
+        type: 'string'
+      password:
+        type: 'string'
+      type:
+        type: 'string'
+    xml:
+      name: 'login'
+  generateOTP:
+    type: 'object'
+    properties:
+      phoneNumber:
+        type: 'string'
+    xml:
+      name: 'generateOTP'
+  otp:
+    type: 'object'
+    properties:
+      token:
+        type: 'string'
+    xml:
+      name: 'otp'
+  admin:
+    type: 'object'
+    properties:
+      adminId:
+        type: 'string'
+      password:
+        type: 'string'
+      type:
+        type: 'string'
+      title:
+        type: 'string'
+      firstName:
+        type: 'string'
+      middleName:
+        type: 'string'
+      lastName:
+        type: 'string'
+      email:
+        type: 'string'
+      phone:
+        type: 'string'
+      address:
+        type: 'string'
+      city:
+        type: 'string'
+      state:
+        type: 'string'
+      country:
+        type: 'string'
+      postalCode:
+        type: 'string'
+      isInvester:
+        type: 'string'
+      investmentAmount:
+        type: 'string'
+      investmentCurrency:
+        type: 'string'
+      investmentDate:
+        type: 'string'
+      language:
+        type: 'string'
+      status:
+        type: 'string'
+    xml:
+      name: 'admin'
+  HotelApprove:
+    type: 'object'
+    properties:
+      propertyId:
+        type: 'string'
+      status:
+        type: 'string'
+    xml:
+      name: 'HotelApprove'
+  HotelToggle:
+    type: 'object'
+    properties:
+      propertyId:
+        type: 'string'
+      hotelStatus:
+        type: 'string'
+    xml:
+      name: 'HotelToggle'
+  UserApprove:
+    type: 'object'
+    properties:
+      userId:
+        type: 'string'
+      status:
+        type: 'string'
+    xml:
+      name: 'UserApprove'
+  UserToggle:
+    type: 'object'
+    properties:
+      userId:
+        type: 'string'
+      userStatus:
+        type: 'string'
+    xml:
+      name: 'UserToggle'
+  BookingApprove:
+    type: 'object'
+    properties:
+      bookingId:
+        type: 'string'
+      status:
+        type: 'string'
+    xml:
+      name: 'BookingApprove'
+  Subscribe:
+    type: 'object'
+    properties:
+      emailId:
+        type: 'string'
+    xml:
+      name: 'Subscribe'
+  UnSubscribe:
+    type: 'object'
+    properties:
+      emailId:
+        type: 'string'
+    xml:
+      name: 'UnSubscribe'
+  BlogPost:
+    type: 'object'
+    properties:
+      content_type:
+        type: 'string'
+      content_for:
+        type: 'string'
+      title:
+        type: 'string'
+      content:
+        type: 'string'
+      heading:
+        type: 'string'
+      meta_tags:
+        type: 'array'
+        items:
+          type: 'string'
+      description:
+        type: 'string'
+      isPublished:
+        type: 'string'
+      relevance:
+        type: 'string'
+    xml:
+      name: 'BlogPost'
+  userUpdate:
+    type: 'object'
+    required:
+      - 'id'
+    properties:
+      id:
+        type: string
+      email:
+        type: 'string'
+      password:
+        type: 'string'
+      type:
+        type: 'string'
+      firstName:
+        type: 'string'
+      middleName:
+        type: 'string'
+      lastName:
+        type: 'string'
+      phone:
+        type: 'string'
+      bookmarks:
+        type: array
+        items:
+          type: 'string'
+      referralId:
+        type: 'string'
+      title:
+        type: 'string'
+      userId:
+        type: 'string'
+      address:
+        type: 'string'
+      city:
+        type: 'string'
+      state:
+        type: 'string'
+      country:
+        type: 'string'
+      postalCode:
+        type: 'string'
+      isInvestor:
+        type: 'string'
+      investorId:
+        type: 'string'
+      language:
+        type: 'string'
+      referralBonus:
+        type: 'string'
+      tokens:
+        type: 'string'
+      status:
+        type: 'string'
+      userStatus:
+        type: 'string'
+      investmentDetails:
+        $ref: '#/definitions/investmentDetails'
+      accountDetails:
+        $ref: '#/definitions/accountDetails'
+
+    xml:
+      name: 'userUpdate'
+  hotelProfileUpdate:
+    type: 'object'
+    required:
+      - 'id'
+    properties:
+      id:
+        type: string
+      email:
+        type: 'string'
+      password:
+        type: 'string'
+      type:
+        type: 'string'
+      contactName:
+        type: 'string'
+      hotelName:
+        type: 'string'
+      phone:
+        type: 'string'
+    xml:
+      name: 'hotelProfileUpdate'
+  ContactUs:
+    type: 'object'
+    required:
+      - 'id'
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: 'string'
+      email:
+        type: 'string'
+      phoneNumber:
+        type: 'string'
+      message:
+        type: 'string'
+    xml:
+      name: 'ContactUs'
+  RazorPayOrder:
+    type: 'object'
+    required:
+      - 'amount'
+    properties:
+      amount:
+        type: string
+      currency:
+        type: 'string'
+    xml:
+      name: 'RazorPayOrder'
+  RazorPayRefund:
+    type: 'object'
+    properties:
+      amount:
+        type: string
+      paymentId:
+        type: 'string'
+      notes:
+        type: 'string'
+    xml:
+      name: 'RazorPayRefund'
+  RazorPayPayment:
+    type: 'object'
+    required:
+      - 'amount'
+    properties:
+      order_id:
+        type: string
+      razorpay_payment_id:
+        type: 'string'
+      razorpay_signature:
+        type: 'string'
+    xml:
+      name: 'RazorPayPayment'
+  Wallet:
+    type: 'object'
+    required:
+      - 'walletId'
+    properties:
+      walletId:
+        type: string
+      amount:
+        type: 'string'
+      currency:
+        type: 'string'
+      userId:
+        type: 'string'
+      email:
+        type: 'string'
+    xml:
+      name: 'Wallet'
+  Fund:
+    type: 'object'
+    required:
+      - 'fundId'
+    properties:
+      fundId:
+        type: string
+      userID:
+        type: 'string'
+      currency:
+        type: string
+      deposit:
+        type: 'string'
+      amount:
+        type: string
+      status:
+        type: 'string'
+      depositId:
+        type: string
+      transactionId:
+        type: 'string'
+    xml:
+      name: 'Fund'
+  ForgetPassword:
+    type: 'object'
+    properties:
+      email:
+        type: string
+      name:
+        type: 'string'
+    xml:
+      name: 'ForgetPassword'
+  ChangePassword:
+    type: 'object'
+    properties:
+      email:
+        type: string
+      name:
+        type: 'string'
+      password:
+        type: 'string'
+    xml:
+      name: 'ChangePassword'
+  BookingEmail:
+    type: 'object'
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      subject: 
+        type: string
+      bookingDetails:
+        type: 'object'
+    xml:
+      name: 'BookingEmail'
